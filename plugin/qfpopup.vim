@@ -18,6 +18,7 @@ set cpo&vim
 
 
 function! s:popup_error_under_cursor() abort
+  popupclear
   let error = s:get_error_by_pos(getpos('.'), win_getid())
   " Skip if current line is same as `error.text`
   " because it's useless (no additional information).
