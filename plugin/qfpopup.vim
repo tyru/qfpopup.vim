@@ -2,7 +2,7 @@
 scriptencoding utf-8
 
 if exists('g:loaded_qfpopup') && g:loaded_qfpopup
-    finish
+  finish
 endif
 let g:loaded_qfpopup = 1
 
