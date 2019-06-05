@@ -6,6 +6,13 @@ if exists('g:loaded_qfpopup') && g:loaded_qfpopup
 endif
 let g:loaded_qfpopup = 1
 
+if !has('patch-8.1.1462')
+  echohl ErrorMsg
+  echomsg 'qfpopup: this plugin requires Vim 8.1.1462'
+  echohl None
+  finish
+endif
+
 let s:save_cpo = &cpo
 set cpo&vim
 
