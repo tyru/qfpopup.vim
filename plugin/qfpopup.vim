@@ -37,14 +37,15 @@ function! s:popup_error(error) abort
   \})
 endfunction
 
+" TODO use {what} argument
+" TODO filter by more accurate pos
 function! s:get_error_by_pos(pos, winid) abort
-  let [lnum, col, off] = a:pos[1:3]
-  " TODO use {what} argument
-  " TODO filter by more accurate pos
+  let [bufnr, lnum] = a:pos[0:1]
   let loclist = getloclist(a:winid)
   let qflist = getqflist()
-  call filter(loclist, { _,error -> error.lnum is lnum })
-  call filter(qflist, { _,error -> error.lnum is lnum })
+  let l:F = { _,error -> error.bufnr is bufnr && error.lnum is lnum }
+  call filter(loclist, l:F)
+  call filter(qflist, l:F)
   return !empty(loclist) ? loclist[0] :
   \      !empty(qflist)  ? qflist[0]  : {}
 endfunction
