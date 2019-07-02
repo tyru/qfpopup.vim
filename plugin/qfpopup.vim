@@ -17,8 +17,20 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
+if has('patch-8.1.1513')
+  function! s:popup_clear() abort
+    call popup_clear()
+  endfunction
+else
+  function! s:popup_clear() abort
+    popupclear
+  endfunction
+endif
+
 function! s:popup_error_under_cursor() abort
-  popupclear
+  if getcmdwintype() ==# ''
+    call s:popup_clear()
+  endif
   let error = s:get_error_by_pos(getpos('.'), win_getid())
   " Skip if current line is same as `error.text`
   " because it's useless (no additional information).
